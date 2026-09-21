@@ -4,12 +4,201 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Quiz Generator Crew</title>
+
 <style>
-:root{font-family:Inter,system-ui,Arial,sans-serif;color:#172033;background:#f5f7fb}*{box-sizing:border-box}body{margin:0}.wrap{max-width:1050px;margin:0 auto;padding:28px 18px}.hero{background:linear-gradient(135deg,#172554,#2563eb);color:white;border-radius:24px;padding:30px;box-shadow:0 15px 40px #17255420}.hero h1{margin:0 0 8px;font-size:clamp(28px,5vw,46px)}.hero p{margin:0;opacity:.9}.card{background:white;border:1px solid #e5e7eb;border-radius:18px;padding:22px;margin-top:18px;box-shadow:0 8px 25px #1725540a}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:700px){.grid{grid-template-columns:1fr}}label{display:block;font-weight:700;font-size:14px;margin-bottom:7px}input,select,textarea{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:10px;font:inherit}input[type=file]{padding:10px;background:#f8fafc}.hint{font-size:12px;color:#64748b;margin-top:5px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}button{border:0;border-radius:10px;padding:13px 18px;font-weight:800;cursor:pointer}button.primary{background:#2563eb;color:white}button.secondary{background:#e2e8f0;color:#172033}button:disabled{opacity:.5;cursor:not-allowed}.status{margin-top:16px;padding:13px;border-radius:10px;background:#eff6ff;color:#1d4ed8;display:none}.status.error{background:#fef2f2;color:#b91c1c}.status.ok{background:#f0fdf4;color:#166534}.result{white-space:pre-wrap;background:#0f172a;color:#e2e8f0;border-radius:12px;padding:16px;overflow:auto;min-height:120px}.pill{display:inline-block;background:#dbeafe;color:#1d4ed8;border-radius:999px;padding:5px 9px;font-size:12px;font-weight:800;margin-top:12px}.small{font-size:13px;color:#64748b;line-height:1.5}.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}@media(max-width:700px){.steps{grid-template-columns:1fr 1fr}}.step{background:#f8fafc;border-radius:12px;padding:13px}.step b{display:block;margin-bottom:5px}.footer{font-size:12px;color:#64748b;text-align:center;padding:22px}
+:root {
+  font-family: Inter, system-ui, Arial, sans-serif;
+  color: #172033;
+  background: #f5f7fb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.wrap {
+  max-width: 1050px;
+  margin: 0 auto;
+  padding: 28px 18px;
+}
+
+.hero {
+  background: linear-gradient(135deg, #172554, #2563eb);
+  color: white;
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow: 0 15px 40px #17255420;
+}
+
+.hero h1 {
+  margin: 0 0 8px;
+  font-size: clamp(28px, 5vw, 46px);
+}
+
+.hero p {
+  margin: 0;
+  opacity: .9;
+}
+
+.card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  padding: 22px;
+  margin-top: 18px;
+  box-shadow: 0 8px 25px #1725540a;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 700px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+label {
+  display: block;
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 7px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font: inherit;
+}
+
+.hint {
+  font-size: 12px;
+  color: #64748b;
+  margin-top: 5px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+button {
+  border: 0;
+  border-radius: 10px;
+  padding: 13px 18px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+button.primary {
+  background: #2563eb;
+  color: white;
+}
+
+button.secondary {
+  background: #e2e8f0;
+  color: #172033;
+}
+
+button:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.status {
+  margin-top: 16px;
+  padding: 13px;
+  border-radius: 10px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  display: none;
+}
+
+.status.error {
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+.status.ok {
+  background: #f0fdf4;
+  color: #166534;
+}
+
+.result {
+  white-space: pre-wrap;
+  background: #0f172a;
+  color: #e2e8f0;
+  border-radius: 12px;
+  padding: 16px;
+  overflow: auto;
+  min-height: 120px;
+}
+
+.pill {
+  display: inline-block;
+  background: #dbeafe;
+  color: #1d4ed8;
+  border-radius: 999px;
+  padding: 5px 9px;
+  font-size: 12px;
+  font-weight: 800;
+  margin-top: 12px;
+}
+
+.small {
+  font-size: 13px;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+@media (max-width: 700px) {
+  .steps {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.step {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 13px;
+}
+
+.step b {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.footer {
+  font-size: 12px;
+  color: #64748b;
+  text-align: center;
+  padding: 22px;
+}
 </style>
 </head>
+
 <body>
+
 <div class="wrap">
+
   <section class="hero">
     <span class="pill">CREWAI WORKFLOW</span>
     <h1>Quiz Generator Crew</h1>
@@ -18,89 +207,404 @@
 
   <section class="card">
     <h2>Workflow</h2>
+
     <div class="steps">
-      <div class="step"><b>1. Upload</b><span class="small">Select study material PDF.</span></div>
-      <div class="step"><b>2. Generate</b><span class="small">Create questions with four options.</span></div>
-      <div class="step"><b>3. Save</b><span class="small">Store questions and answers in Drive.</span></div>
-      <div class="step"><b>4. Draft</b><span class="small">Prepare an email without sending it.</span></div>
+      <div class="step">
+        <b>1. Material</b>
+        <span class="small">Provide a PDF link.</span>
+      </div>
+
+      <div class="step">
+        <b>2. Generate</b>
+        <span class="small">Create questions with four options.</span>
+      </div>
+
+      <div class="step">
+        <b>3. Save</b>
+        <span class="small">Store questions and answers in Drive.</span>
+      </div>
+
+      <div class="step">
+        <b>4. Draft</b>
+        <span class="small">Prepare an email without sending it.</span>
+      </div>
     </div>
   </section>
 
   <section class="card">
-    <h2>Run your quiz workflow</h2>
+
+    <h2>Run Your Quiz Workflow</h2>
+
     <form id="quizForm">
+
       <div class="grid">
+
         <div>
-          <label for="material">Study material PDF</label>
-          <input id="material" name="material" type="file" accept="application/pdf,.pdf" required />
-          <div class="hint">PDF only. The file is sent to your configured CrewAI endpoint.</div>
+          <label for="pdfLink">Study Material PDF Link</label>
+
+          <input
+            id="pdfLink"
+            name="pdfLink"
+            type="url"
+            placeholder="https://example.com/study-material.pdf"
+            required
+          />
+
+          <div class="hint">
+            Enter a publicly accessible PDF URL.
+          </div>
         </div>
+
         <div>
-          <label for="title">Quiz title</label>
-          <input id="title" name="title" placeholder="Digital Scaffolding of the Unseen Web Quiz" required />
+          <label for="title">Quiz Title</label>
+
+          <input
+            id="title"
+            name="title"
+            placeholder="Digital Scaffolding Quiz"
+            required
+          />
         </div>
+
         <div>
-          <label for="recipient">Recipient email</label>
-          <input id="recipient" name="recipient" type="email" placeholder="teacher@example.com" required />
+          <label for="recipientName">Recipient Name</label>
+
+          <input
+            id="recipientName"
+            name="recipientName"
+            type="text"
+            placeholder="Ms. Johnson"
+            required
+          />
         </div>
+
         <div>
-          <label for="count">Number of questions</label>
-          <select id="count" name="count"><option>10</option><option>20</option><option selected>30</option><option>40</option><option>50</option></select>
+          <label for="recipient">Recipient Email</label>
+
+          <input
+            id="recipient"
+            name="recipient"
+            type="email"
+            placeholder="teacher@example.com"
+            required
+          />
         </div>
+
         <div>
-          <label for="folder">Google Drive folder name</label>
-          <input id="folder" name="folder" value="All Generated Quizzes" required />
+          <label for="count">Number of Questions</label>
+
+          <select id="count" name="count">
+            <option>10</option>
+            <option>20</option>
+            <option selected>30</option>
+            <option>40</option>
+            <option>50</option>
+          </select>
         </div>
+
         <div>
-          <label for="mode">Execution mode</label>
-          <select id="mode" name="mode"><option value="live" selected>Live CrewAI endpoint</option><option value="demo">Demo preview</option></select>
+          <label for="folder">Google Drive Folder Name</label>
+
+          <input
+            id="folder"
+            name="folder"
+            value="All Generated Quizzes"
+            required
+          />
         </div>
+
+        <div>
+          <label for="mode">Execution Mode</label>
+
+          <select id="mode" name="mode">
+            <option value="live" selected>Live CrewAI Endpoint</option>
+            <option value="demo">Demo Preview</option>
+          </select>
+        </div>
+
       </div>
+
       <div class="actions">
-        <button class="primary" id="runBtn" type="submit">Run workflow</button>
-        <button class="secondary" type="button" id="clearBtn">Clear</button>
+
+        <button
+          class="primary"
+          id="runBtn"
+          type="submit"
+        >
+          Run Workflow
+        </button>
+
+        <button
+          class="secondary"
+          type="button"
+          id="clearBtn"
+        >
+          Clear
+        </button>
+
       </div>
+
     </form>
-    <div id="status" class="status" role="status"></div>
+
+    <div
+      id="status"
+      class="status"
+      role="status"
+    ></div>
+
   </section>
 
   <section class="card">
+
     <h2>Result</h2>
-    <p class="small">The live result depends on your CrewAI API endpoint. Demo mode displays a safe sample response and does not create a real Drive file or email draft.</p>
-    <div id="result" class="result">No run yet.</div>
+
+    <p class="small">
+      The live result depends on your CrewAI API endpoint.
+      Demo mode does not create a real Drive file or email draft.
+    </p>
+
+    <div
+      id="result"
+      class="result"
+    >
+      No run yet.
+    </div>
+
   </section>
 
-  <div class="footer">Email is requested as a draft only. This page does not send email by itself.</div>
+  <div class="footer">
+    Email is requested as a draft only.
+    This page does not send email by itself.
+  </div>
+
 </div>
+
 <script>
-const form=document.getElementById('quizForm');
-const statusBox=document.getElementById('status');
-const resultBox=document.getElementById('result');
-const runBtn=document.getElementById('runBtn');
-function status(message,type=''){statusBox.textContent=message;statusBox.className='status '+type;statusBox.style.display='block';}
-function demoResponse(data){return {mode:'demo',quiz_title:data.quiz_title,questions_saved:false,email_draft_created:false,message:'Demo preview only. Connect your CrewAI API endpoint to execute the real workflow.',sample_format:{question:'Sample question from the study material',options:['Option A','Option B','Option C','Option D'],correct_answer:'Option A'},requested_drive_folder:data.drive_folder,recipient_email:data.recipient_email};}
-form.addEventListener('submit',async(e)=>{
- e.preventDefault();
- const file=document.getElementById('material').files[0];
- if(!file||file.type!=='application/pdf'){status('Please select a PDF file.','error');return;}
- const data={quiz_title:document.getElementById('title').value.trim(),recipient_email:document.getElementById('recipient').value.trim(),question_count:Number(document.getElementById('count').value),drive_folder:document.getElementById('folder').value.trim(),file_name:file.name};
- runBtn.disabled=true;status('Preparing workflow...');resultBox.textContent='Working...';
- try{
-   if(document.getElementById('mode').value==='demo'){
-     resultBox.textContent=JSON.stringify(demoResponse(data),null,2);status('Demo preview completed.','ok');return;
-   }
-   const buffer=await file.arrayBuffer();
-   let binary='';const bytes=new Uint8Array(buffer);const chunk=0x8000;
-   for(let i=0;i<bytes.length;i+=chunk){binary+=String.fromCharCode(...bytes.subarray(i,i+chunk));}
-   const payload={...data,study_material_base64:btoa(binary),instruction:'Generate all questions with four options and correct answers only. Save the complete content to the requested Google Drive folder. Create an email draft only; do not send it.'};
-   const response=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-   const body=await response.json().catch(()=>({message:'Invalid server response'}));
-   if(!response.ok)throw new Error(body.error||body.message||'Workflow request failed');
-   resultBox.textContent=JSON.stringify(body,null,2);status('Workflow completed. Check the returned Drive link and draft details.','ok');
- }catch(err){resultBox.textContent=err.message;status(err.message,'error');}
- finally{runBtn.disabled=false;}
+
+const form = document.getElementById('quizForm');
+
+const statusBox = document.getElementById('status');
+
+const resultBox = document.getElementById('result');
+
+const runBtn = document.getElementById('runBtn');
+
+
+function showStatus(message, type = '') {
+
+  statusBox.textContent = message;
+
+  statusBox.className = 'status ' + type;
+
+  statusBox.style.display = 'block';
+
+}
+
+
+function demoResponse(data) {
+
+  return {
+
+    mode: 'demo',
+
+    quiz_title: data.quiz_title,
+
+    recipient_name: data.recipient_name,
+
+    recipient_email: data.recipient_email,
+
+    question_count: data.question_count,
+
+    questions_saved: false,
+
+    email_draft_created: false,
+
+    message:
+      'Demo preview only. Connect your CrewAI API endpoint to execute the real workflow.',
+
+    requested_drive_folder: data.drive_folder
+
+  };
+
+}
+
+
+form.addEventListener('submit', async (event) => {
+
+  event.preventDefault();
+
+  const pdfLink =
+    document.getElementById('pdfLink').value.trim();
+
+  const quizTitle =
+    document.getElementById('title').value.trim();
+
+  const recipientName =
+    document.getElementById('recipientName').value.trim();
+
+  const recipientEmail =
+    document.getElementById('recipient').value.trim();
+
+  const questionCount =
+    Number(document.getElementById('count').value);
+
+  const driveFolder =
+    document.getElementById('folder').value.trim();
+
+  const mode =
+    document.getElementById('mode').value;
+
+
+  if (!pdfLink.toLowerCase().endsWith('.pdf')) {
+
+    showStatus(
+      'Please enter a valid PDF link ending with .pdf.',
+      'error'
+    );
+
+    return;
+
+  }
+
+
+  const data = {
+
+    quiz_title: quizTitle,
+
+    recipient_name: recipientName,
+
+    recipient_email: recipientEmail,
+
+    question_count: questionCount,
+
+    drive_folder: driveFolder,
+
+    pdf_link: pdfLink
+
+  };
+
+
+  runBtn.disabled = true;
+
+  showStatus('Preparing workflow...');
+
+  resultBox.textContent = 'Working...';
+
+
+  try {
+
+    if (mode === 'demo') {
+
+      resultBox.textContent =
+        JSON.stringify(demoResponse(data), null, 2);
+
+      showStatus(
+        'Demo preview completed.',
+        'ok'
+      );
+
+      return;
+
+    }
+
+
+    const payload = {
+
+      recipient_email: data.recipient_email,
+
+      recipient_name: data.recipient_name,
+
+      pdf_link: data.pdf_link,
+
+      quiz_title: data.quiz_title,
+
+      question_count: data.question_count,
+
+      drive_folder: data.drive_folder,
+
+      instruction:
+        'Generate the requested number of questions with four answer options and correct answers. Save the complete quiz in the Google Drive folder. Create an email draft only. Do not send the email.'
+
+    };
+
+
+    const response = await fetch('/api/generate', {
+
+      method: 'POST',
+
+      headers: {
+
+        'Content-Type': 'application/json'
+
+      },
+
+      body: JSON.stringify(payload)
+
+    });
+
+
+    const body = await response.json().catch(() => ({
+
+      message: 'Invalid server response'
+
+    }));
+
+
+    if (!response.ok) {
+
+      throw new Error(
+
+        body.error ||
+        body.message ||
+        'Workflow request failed'
+
+      );
+
+    }
+
+
+    resultBox.textContent =
+      JSON.stringify(body, null, 2);
+
+
+    showStatus(
+
+      'Workflow completed. Check Google Drive and email drafts.',
+
+      'ok'
+
+    );
+
+
+  } catch (error) {
+
+    resultBox.textContent = error.message;
+
+    showStatus(error.message, 'error');
+
+  } finally {
+
+    runBtn.disabled = false;
+
+  }
+
 });
-document.getElementById('clearBtn').addEventListener('click',()=>{form.reset();document.getElementById('folder').value='All Generated Quizzes';resultBox.textContent='No run yet.';statusBox.style.display='none';});
+
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+
+  form.reset();
+
+  document.getElementById('folder').value =
+    'All Generated Quizzes';
+
+  resultBox.textContent = 'No run yet.';
+
+  statusBox.style.display = 'none';
+
+});
+
 </script>
+
 </body>
 </html>
