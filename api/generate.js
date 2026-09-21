@@ -1,6 +1,8 @@
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+    return res.status(405).json({
+      error: 'Method not allowed'
+    });
   }
 
   if (!process.env.CREW_API_URL) {
@@ -18,9 +20,9 @@ export default async function handler(req, res) {
 
     const payload = {
       recipient_email: body.recipient_email,
-      study_material_path: body.study_material_path,
-      quiz_title: body.quiz_title,
-      recipient_name: body.recipient_name
+      recipient_name: body.recipient_name,
+      study_material_path: body.pdf_link,
+      quiz_title: body.quiz_title
     };
 
     const missing = Object.keys(payload).filter(
@@ -38,7 +40,9 @@ export default async function handler(req, res) {
       headers: {
         'Content-Type': 'application/json',
         ...(process.env.CREW_API_KEY
-          ? { Authorization: `Bearer ${process.env.CREW_API_KEY}` }
+          ? {
+              Authorization: `Bearer ${process.env.CREW_API_KEY}`
+            }
           : {})
       },
       body: JSON.stringify(payload)
@@ -47,6 +51,7 @@ export default async function handler(req, res) {
     const text = await upstream.text();
 
     let data;
+
     try {
       data = JSON.parse(text);
     } catch {
