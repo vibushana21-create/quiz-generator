@@ -263,14 +263,6 @@ form.addEventListener("submit", async function(event) {
   const mode =
     document.getElementById("mode").value;
 
-  if (!pdfLink.includes("drive.google.com")) {
-    showStatus(
-      "Please enter a valid Google Drive PDF link.",
-      "error"
-    );
-    return;
-  }
-
   const payload = {
 
     recipient_email: recipientEmail,
