@@ -28,7 +28,7 @@ exports.handler = async (event) => {
     };
 
     const missing = Object.keys(payload).filter(
-      (key) => !payload[key]
+      key => !payload[key]
     );
 
     if (missing.length > 0) {
@@ -44,7 +44,7 @@ exports.handler = async (event) => {
       ? process.env.CREW_API_URL
       : `${process.env.CREW_API_URL}/kickoff`;
 
-    const response = await fetch(endpoint, {
+    fetch(endpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -55,23 +55,32 @@ exports.handler = async (event) => {
           : {})
       },
       body: JSON.stringify(payload)
-    });
-
-    const text = await response.text();
+    })
+      .then(async response => {
+        console.log(
+          "CrewAI response:",
+          response.status,
+          await response.text()
+        );
+      })
+      .catch(error => {
+        console.error("CrewAI error:", error);
+      });
 
     return {
-      statusCode: response.status,
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: text
+      statusCode: 202,
+      body: JSON.stringify({
+        success: true,
+        message:
+          "Quiz generation started. CrewAI is processing the workflow."
+      })
     };
 
   } catch (error) {
     return {
       statusCode: 500,
       body: JSON.stringify({
-        error: error.message || "Could not contact CrewAI endpoint."
+        error: error.message
       })
     };
   }
